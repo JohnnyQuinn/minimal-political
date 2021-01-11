@@ -1,4 +1,5 @@
 import requests
+import jinja2
 
 from flask import Flask, request, render_template
 from pprint import PrettyPrinter
@@ -14,14 +15,43 @@ def homepage():
 
     r = requests.get(senate_members_url, headers=headers).json()
 
-    senate_members_list = r["results"][0]["members"]
+    senate_members_data = r["results"][0]["members"]
 
-    print("---------------------------------------------------------")
+    house_members_url = "https://api.propublica.org/congress/v1/116/house/members.json"
 
-    return render_template('home.html')
+    r = requests.get(house_members_url, headers=headers).json()
+
+    house_members_data = r["results"][0]["members"]
+
+    full_congress_list = create_members_list(senate_members_data, house_members_data)
+
+    context = {
+        'full_congress_list': full_congress_list,
+    }
+
+    return render_template('home.html', **context)
+
+def create_members_list(member_data1, member_data2):
+    member_list = []
+    for member in member_data1:
+        fullname = {
+            'first_name': member['first_name'],
+            'last_name': member['last_name']
+        }
+        member_list.append(fullname)
+    for member in member_data2:
+        fullname = {
+            'first_name': member['first_name'],
+            'last_name': member['last_name']
+        }
+        member_list.append(fullname)
+
+    return member_list
 
 @app.route("/lawmaker-results")
 def lawmaker_results():
+    lawmaker_query = requests.get.args('lawmaker-query')
+
     context = {
         'lawmaker_name': request.args.get('lawmaker-query')
     }
