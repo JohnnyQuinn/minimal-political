@@ -6,13 +6,13 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
     </head>
     <body>
         <nav class="navbar">
-            <a href="home.html" class="navbar-brand">minimal political</a>
-            <form class="form-inline">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="search">
+            <a href="/" class="navbar-brand ms-3">minimal political</a>
+            <form class="d-flex w-50 input-group" action="/lawmaker-results">
+                <input class="form-control" type="search" placeholder="Search" aria-label="Search" name="lawmaker-query" autocomplete="off">
                 <button class="btn btn-primary" type="submit">Search</button>
             </form>
             <a href="" class="nav-link">about</a>
@@ -21,7 +21,7 @@
             <div class="row">
                 <!-- Lawmaker info parent card-->
                 <div class="card col-4">
-                    <img src="https://theunitedstates.io/images/congress/original/{{lawmaker_id}}.jpg" alt="" class="card-img-top mt-2">
+                    <img src="https://theunitedstates.io/images/congress/original/{{lawmaker_id}}.jpg" alt="" class="card-img-top mt-2 rounded w-75">
                     <div class="card-body">
                         <h1 class="card-title">{{ lawmaker_name }}</h1>
                         <h3>{{ lawmaker_chamber }}</h3>
@@ -42,7 +42,7 @@
                                             <p class="text-center m-0">{{ vote['date'][:4] }}</p>
                                         </div>
                                         <p class="col-8 m-0 text-center">{{ vote['title'] }}</p>
-                                        <p class="col-2 m-0 text-center my-auto">{{ vote['position'] }}</p>
+                                        <h5 class="col-2 m-0 text-center my-auto">{{ vote['position'] }}</h5>
                                     </div>
                                 </div>
                             {% endfor %}

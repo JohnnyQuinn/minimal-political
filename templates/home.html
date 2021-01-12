@@ -6,41 +6,20 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
         <title>minimal political</title>
     </head>
     <body>
         <nav class="navbar">
-            <a href="#" class="navbar-brand">minimal political</a>
+            <a href="#" class="navbar-brand ps-3">minimal political</a>
             <a href="" class="nav-link">about</a>
         </nav>
         <div class="container mx-auto mt-5">
             <h1 class="display-1 text-center">minimal political</h1>
-            <h3 class="text-muted text-center mt-5">Search for any US lawmaker and get their voting records</h1>
-            <form action="/lawmaker-results" method="GET" class="mt-5">
-                <div class="form-inline">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-1"></div>
-                            <div class="container col-8 ">
-                                <input type="text" id="seachbar" class="form-control ml-auto w-100" placeholder="Search..." name="lawmaker-query" autocomplete="off">
-                                <div id="autocomplete_box" style="display:none">
-                                    <ul>
-                                        {% for member in full_congress_list %}
-                                            <li>
-                                                <p>{{ member['last_name'] }}</p>
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="col-2 ">
-                                <button type="submit" class="btn btn-primary mr-auto">Submit</button>
-                            </div>
-                            <div class="col-1"></div>
-                        </div>
-                    </div>
-                </div>
+            <h3 class="text-muted text-center mt-5">Search for any current US lawmakers and get their voting records</h1>
+            <form action="/lawmaker-results" method="GET" class="mt-5 input-group w-50 mx-auto">
+                    <input type="text" id="seachbar" class="form-control" placeholder="Search..." name="lawmaker-query" autocomplete="off">
+                    <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </body>

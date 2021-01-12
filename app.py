@@ -69,6 +69,14 @@ def get_lawmaker_info(lawmaker_query, senate_members_data, house_members_data):
                     lawmaker_info['party'] = member['party']
                     break
 
+    # corrects lawmaker's party 
+    if lawmaker_info['party'] == 'R':
+        lawmaker_info['party'] = 'Republican'
+    elif lawmaker_info['party'] == 'D':
+        lawmaker_info['party'] = 'Democrat'
+    else:
+        lawmaker_info['party'] = 'Independent'
+
     return lawmaker_info
 
 @app.route("/lawmaker-results")
