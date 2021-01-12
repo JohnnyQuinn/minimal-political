@@ -106,6 +106,7 @@ def lawmaker_results():
         'lawmaker_name': lawmaker_info['name'],
         'lawmaker_chamber': lawmaker_info['chamber'],
         'lawmaker_party': lawmaker_info['party'],
+        'lawmaker_id': lawmaker_info['id'],
         'recent_bills_voted': recent_bills_voted
     }
     return render_template('lawmaker-results.html', **context)
