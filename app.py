@@ -18,6 +18,7 @@ def homepage():
     return render_template('home.html', **context)
 
 def create_members_list(member_data1, member_data2):
+    """creates list of members from both senate and house """
     member_list = []
     for member in member_data1:
         fullname = {
@@ -102,16 +103,16 @@ def lawmaker_results():
 
     r = requests.get(request_URL, headers=headers).json()
 
-    recent_bills_voted = r['results'][0]['votes']
+    recent_votes = r['results'][0]['votes']
 
-    recent_bills_voted = filter_votes(recent_bills_voted)
+    recent_votes = filter_votes(recent_votes)
 
     context = {
         'lawmaker_name': lawmaker_info['name'],
         'lawmaker_chamber': lawmaker_info['chamber'],
         'lawmaker_party': lawmaker_info['party'],
         'lawmaker_id': lawmaker_info['id'],
-        'recent_bills_voted': recent_bills_voted
+        'recent_votes': recent_votes
     }
     return render_template('lawmaker-results.html', **context)
 
@@ -121,7 +122,6 @@ def filter_votes(recent_votes):
 
     for vote in recent_votes:
         if bool(vote['bill']) is not False: #if this dictionary is not empty
-            print(f'title: {vote["bill"]["title"]}')
             if vote['bill']['title'] is not None: #if the bill title isnt null
                 vote_info = {
                     'title': vote['bill']['title'],
@@ -139,8 +139,6 @@ def filter_votes(recent_votes):
                     recent_votes_final.append(vote_info)
     
     return recent_votes_final
-
-            
 
 if __name__ == '__main__':
     app.run(debug=True)
