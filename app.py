@@ -93,6 +93,8 @@ def lawmaker_results():
     # get their info (id, name, chamber, party)
     lawmaker_info = get_lawmaker_info(lawmaker_query, senate_members_data, house_members_data)
 
+    print(f'- {lawmaker_info["name"]}\n- {lawmaker_info["id"]}')
+
     # [ProPublica] GET dictionary of the last 20 most recent bills voted on based on lawmakers's id 
     # TODO: put API-key in .env and .gitignore
     request_URL = f'https://api.propublica.org/congress/v1/members/{lawmaker_info["id"]}/votes.json'
@@ -102,6 +104,8 @@ def lawmaker_results():
 
     recent_bills_voted = r['results'][0]['votes']
 
+    recent_bills_voted = filter_votes(recent_bills_voted)
+
     context = {
         'lawmaker_name': lawmaker_info['name'],
         'lawmaker_chamber': lawmaker_info['chamber'],
@@ -110,6 +114,25 @@ def lawmaker_results():
         'recent_bills_voted': recent_bills_voted
     }
     return render_template('lawmaker-results.html', **context)
+
+def filter_votes(recent_votes):
+    """filter through api response for votes and get votes only on bills (and not other stuff) """
+    recent_bills_voted = []
+
+    for vote in recent_votes:
+        if bool(vote['bill']) is not False: #if this dictionary is not empty
+            print(f'title: {vote["bill"]["title"]}')
+            if vote['bill']['title'] is not None: #if the bill title isnt null
+                bill_vote_info = {
+                    'title': vote['bill']['title'],
+                    'date': vote['date'],
+                    'position': vote['position']
+                }
+                recent_bills_voted.append(bill_vote_info)
+    
+    return recent_bills_voted
+
+            
 
 if __name__ == '__main__':
     app.run(debug=True)

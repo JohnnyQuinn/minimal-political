@@ -34,28 +34,18 @@
                         <h1 class="card-title">Bills</h5>
                         <!-- Bill info cards container -->
                         <div class="container overflow-auto" style="max-height: 500px; overflow: scroll;">
-                            {% for i in range(20) %}
+                            {% for vote in recent_bills_voted %}
                                 <div class="card">
                                     <div class="row py-1">
                                         <div class="col-2 m-0 my-auto">
-                                            <p class="text-center m-0">{{ recent_bills_voted[i]['date'][5:] }}</p>
-                                            <p class="text-center m-0">{{ recent_bills_voted[i]['date'][:4] }}</p>
+                                            <p class="text-center m-0">{{ vote['date'][5:] }}</p>
+                                            <p class="text-center m-0">{{ vote['date'][:4] }}</p>
                                         </div>
-                                        <p class="col-8 m-0 text-center">{{ recent_bills_voted[i]['bill']['title'] }}</p>
-                                        <p class="col-2 m-0 text-center my-auto">{{ recent_bills_voted[i]['position'] }}</p>
+                                        <p class="col-8 m-0 text-center">{{ vote['title'] }}</p>
+                                        <p class="col-2 m-0 text-center my-auto">{{ vote['position'] }}</p>
                                     </div>
                                 </div>
                             {% endfor %}
-                            <!-- <div class="card">
-                                <div class="row py-1">
-                                    <div class="col-2 m-0 my-auto">
-                                        <p class="text-center m-0">{{ recent_bills_voted[3]['date'][5:] }}</p>
-                                        <p class="text-center m-0">{{ recent_bills_voted[3]['date'][:4] }}</p>
-                                    </div>
-                                    <p class="col-8 m-0 text-center">{{ recent_bills_voted[3]['bill']['title'] }}</p>
-                                    <p class="col-2 m-0 text-center my-auto">{{ recent_bills_voted[3]['position'] }}</p>
-                                </div>
-                            </div> -->
                         </div>
                     </div>
                 </div>
