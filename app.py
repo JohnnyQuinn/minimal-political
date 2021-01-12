@@ -117,20 +117,28 @@ def lawmaker_results():
 
 def filter_votes(recent_votes):
     """filter through api response for votes and get votes only on bills (and not other stuff) """
-    recent_bills_voted = []
+    recent_votes_final = []
 
     for vote in recent_votes:
         if bool(vote['bill']) is not False: #if this dictionary is not empty
             print(f'title: {vote["bill"]["title"]}')
             if vote['bill']['title'] is not None: #if the bill title isnt null
-                bill_vote_info = {
+                vote_info = {
                     'title': vote['bill']['title'],
                     'date': vote['date'],
                     'position': vote['position']
                 }
-                recent_bills_voted.append(bill_vote_info)
+                recent_votes_final.append(vote_info)
+            elif 'nomination' in vote.keys(): #if the bill title is null and there is a nomination dictionary
+                if vote['question'] == "On the Nomination": #if the vote is for the nomination
+                    vote_info = {
+                        'title': f'{vote["question"]} of {vote["description"]}',
+                        'date': vote['date'],
+                        'position': vote['position']
+                    }
+                    recent_votes_final.append(vote_info)
     
-    return recent_bills_voted
+    return recent_votes_final
 
             
 
