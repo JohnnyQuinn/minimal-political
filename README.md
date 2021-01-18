@@ -6,7 +6,7 @@ For the average American, their greatest impact they can have in politics is bei
 
 ![Demo Gif](minimal_political_demo_screen_cap.gif)
 
-Search for any lawmakers in Congress that are currently in office and get their votes on the 5 most recently voted on bills in their respective chambers. 
+Search for any lawmakers in Congress that are currently in office and get their votes on the most recent votes in their respective chambers. 
 
 ## Road Map
 
