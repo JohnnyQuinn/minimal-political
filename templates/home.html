@@ -11,9 +11,19 @@
         <h1 class="display-1 text-center">minimal political</h1>
         <h3 class="text-muted text-center mt-5">Search for any current US lawmakers and get their voting records</h1>
         <form action="/lawmaker-results" method="GET" class="mt-5 input-group w-50 mx-auto">
-                <input type="text" id="seachbar" class="form-control" placeholder="Search..." name="lawmaker-query" autocomplete="off">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="row container-fluid">
+                    <div class="col-10 p-0">
+                    	<input type="text" id="seachbar" class="form-control" placeholder="Search..." name="lawmaker-query" autocomplete="off">
+                    	<div class="card" id="autocomplete-suggestion-container"></div>
+                    </div>
+                    <div class="col-2 p-0">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
         </form>
     </div>
 </section>
+<script>
+
+</script>
 {% endblock %}
