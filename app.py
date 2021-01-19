@@ -10,30 +10,50 @@ pp = PrettyPrinter(indent=1)
 
 @app.route("/")
 def homepage():
+    senate_members_url = "https://api.propublica.org/congress/v1/116/senate/members.json"
+    headers = {'x-api-key': "Hk6QVaUEQ453sdhadQMafiX9Ya5hblL7uwqVPEFw"}
+
+    r = requests.get(senate_members_url, headers=headers).json()
+
+    senate_members_data = r["results"][0]["members"]
+
+    house_members_url = "https://api.propublica.org/congress/v1/116/house/members.json"
+
+    r = requests.get(house_members_url, headers=headers).json()
+
+    house_members_data = r["results"][0]["members"]
+
+    full_congress_list = create_members_list(senate_members_data, house_members_data)
 
     context = {
-        'full_congress_list': "null",                   #do autocompleted search after getting everything to display on lawmaker-results.html
+        'full_congress_list': full_congress_list    ,                   
     }
 
     return render_template('home.html', **context)
 
 def create_members_list(member_data1, member_data2):
-    """creates list of members from both senate and house """
+    """creates list of members from both senate and house along with their ids"""
     member_list = []
     for member in member_data1:
         fullname = {
-            'first_name': member['first_name'],
-            'last_name': member['last_name']
+            "first_name": member['first_name'],
+            "last_name": member['last_name'],
+            "id": member['id']
         }
         member_list.append(fullname)
     for member in member_data2:
         fullname = {
-            'first_name': member['first_name'],
-            'last_name': member['last_name']
+            "first_name": member['first_name'],
+            "last_name": member['last_name'],
+            "id": member['id']
         }
         member_list.append(fullname)
+    
+    JSON_member_list = {
+        "full_congress_list": member_list
+    }
 
-    return member_list
+    return JSON_member_list
 
 def get_lawmaker_info(lawmaker_query, senate_members_data, house_members_data):
     """ takes in user inputted name of a lawmaker and returns the lawmaker's info (full name, chamber, id, party)"""
